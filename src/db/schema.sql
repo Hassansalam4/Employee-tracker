@@ -1,31 +1,26 @@
-CREATE DATABASE employee_tracker;
+DROP DATABASE IF EXISTS employee_db;
+CREATE DATABASE employee_db;
+\c employee_db;
 
-
-
-
-
-
--- Departments Table
+-- Create departments table
 CREATE TABLE departments (
-    id SERIAL PRIMARY KEY,NOT NULL
-  first_name  VARCHAR(50) NOT NULL
-    last_name VARCHAR(50) NOT NULL
-    pen_name VARCHAR(50) NOT NULL
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
 );
 
--- Roles Table
+-- Create roles table
 CREATE TABLE roles (
     id SERIAL PRIMARY KEY,
     title VARCHAR(50) NOT NULL,
-    salary DECIMAL NOT NULL,
+    salary DECIMAL(10, 2) NOT NULL,
     department_id INTEGER REFERENCES departments(id)
 );
 
--- Employees Table
+-- Create employees table
 CREATE TABLE employees (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     role_id INTEGER REFERENCES roles(id),
-    manager_id INTEGER REFERENCES employees(id)
+    manager_id INTEGER REFERENCES employees(id) ON DELETE SET NULL
 );
