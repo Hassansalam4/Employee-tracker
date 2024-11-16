@@ -1,26 +1,17 @@
-DROP DATABASE IF EXISTS employee_db;
-CREATE DATABASE employee_db;
-\c employee_db;
+-- Insert departments
+INSERT INTO departments (name) VALUES 
+    ('Sales'), 
+    ('Engineering'), 
+    ('Finance');
 
--- Create departments table
-CREATE TABLE departments (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(50) NOT NULL
-);
+-- Insert roles
+INSERT INTO roles (title, salary, department_id) VALUES 
+    ('Sales Manager', 60000, 1),
+    ('Software Engineer', 80000, 2),
+    ('Accountant', 50000, 3);
 
--- Create roles table
-CREATE TABLE roles (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(50) NOT NULL,
-    salary DECIMAL(10, 2) NOT NULL,
-    department_id INTEGER REFERENCES departments(id)
-);
-
--- Create employees table
-CREATE TABLE employees (
-    id SERIAL PRIMARY KEY,
-    first_name VARCHAR(50) NOT NULL,
-    last_name VARCHAR(50) NOT NULL,
-    role_id INTEGER REFERENCES roles(id),
-    manager_id INTEGER REFERENCES employees(id) ON DELETE SET NULL
-);
+-- Insert employees
+INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES 
+    ('Hassan', 'John', 1, NULL),
+    ('Ali', 'Usman', 2, 1),
+    ('Charlie', 'Brown', 3, NULL);
